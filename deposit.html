@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Deposit</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: hsl(207, 15%, 88%);
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #bbb;
+      width: 400px;
+    }
+    .close-btn {
+      left:300px;
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #888;
+
+    }
+    .close-btn:hover {
+      color: #000;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      box-sizing: border-box;
+    }
+    .message {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="container">
+    <button class="close-btn" onclick="location.href='new.html'">✕</button>
+    <h2>Deposit to Account</h2>
+    <form id="depositForm">
+      <label for="accountNumber">Account Number</label>
+      <input type="text" id="accountNumber" required />
+
+      <label for="pin">PIN</label>
+      <input type="password" id="pin" maxlength="6" required />
+
+      <label for="amount">Deposit Amount (₹)</label>
+      <input type="number" id="amount" min="1" required />
+
+      <button type="submit">Deposit</button>
+    </form>
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    const depositForm = document.getElementById('depositForm');
+    const message = document.getElementById('message');
+
+    depositForm.addEventListener('submit', e => {
+      e.preventDefault();
+
+      const accNum = document.getElementById('accountNumber').value.trim();
+      const pin = document.getElementById('pin').value.trim();
+      const amount = parseFloat(document.getElementById('amount').value);
+
+      if (!accNum || !/^\d{6}$/.test(pin) || isNaN(amount) || amount <= 0) {
+        message.textContent = '❗ Invalid input. Check account number, PIN, and amount.';
+        message.style.color = 'red';
+        return;
+      }
+
+      let accounts = JSON.parse(localStorage.getItem('bankAccounts')) || [];
+
+      const account = accounts.find(acc => acc.accountNumber === accNum && acc.pin === pin);
+
+      if (!account) {
+        message.textContent = ' Account not found or PIN incorrect.';
+        message.style.color = 'red';
+        return;
+      }
+
+      account.balance += amount;
+
+      
+      localStorage.setItem('bankAccounts', JSON.stringify(accounts));
+
+      message.textContent = ` ₹${amount.toFixed(2)} deposited successfully.\nNew Balance: ₹${account.balance.toFixed(2)}`;
+      message.style.color = 'green';
+
+      depositForm.reset();
+    });
+  </script>
+</body>
+</html>

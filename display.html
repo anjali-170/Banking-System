@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Account Display</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e2e8f0;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+      width: 450px;
+    }
+        .close-btn {
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #888;
+    }
+    .close-btn:hover {
+      color: #000;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      box-sizing: border-box;
+    }
+    .details {
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid #ccc;
+      white-space: pre-wrap;
+    }
+    .error {
+      margin-top: 10px;
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  
+
+
+  <div class="container">
+    <button class="close-btn" onclick="location.href='new.html'">✕</button> 
+    <h2>View Account Details</h2>
+    <form id="displayForm">
+      <label for="accountNumber">Account Number</label>
+      <input type="text" id="accountNumber" required />
+
+      <label for="pin">PIN</label>
+      <input type="password" id="pin" maxlength="6" required />
+
+      <button type="submit">Display</button>
+    </form>
+
+    <div class="error" id="error"></div>
+    <div class="details" id="accountDetails"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById('displayForm');
+    const errorDiv = document.getElementById('error');
+    const detailsDiv = document.getElementById('accountDetails');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const accNum = document.getElementById('accountNumber').value.trim();
+      const pin = document.getElementById('pin').value.trim();
+
+      const accounts = JSON.parse(localStorage.getItem('bankAccounts')) || [];
+      const account = accounts.find(acc => acc.accountNumber === accNum && acc.pin === pin);
+
+      if (!account) {
+        errorDiv.textContent = ' Account not found or incorrect PIN.';
+        detailsDiv.textContent = '';
+        return;
+      }
+
+      errorDiv.textContent = '';
+      detailsDiv.textContent = 
+`Account Details:
+
+  Account Number : ${account.accountNumber}
+  Name           : ${account.name}
+  DOB            : ${account.dob}
+  Gender         : ${account.gender}
+  Account Type   : ${account.type}
+  Current Balance: ₹${account.balance.toFixed(2)}
+`;
+    });
+  </script>
+</body>
+</html>

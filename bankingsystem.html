@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Banking System Menu</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f9fafb;
+      font-family: Arial, sans-serif;
+    }
+
+    .menu {
+      text-align: center;
+    }
+
+    .menu button {
+      display: block;
+      width: 250px;
+      margin: 15px auto;
+      padding: 15px;
+      font-size: 18px;
+      border: 2px solid #a3bffa;
+      background-color: #dbeafe;
+      color: #1e40af;
+      cursor: pointer;
+      border-radius: 10px;
+      transition: background-color 0.3s, color 0.3s;
+      box-shadow: 0 2px 5px rgba(163, 191, 250, 0.3);
+    }
+
+    .menu button:hover {
+      background-color: #bfdbfe;
+      color: #1e3a8a;
+      box-shadow: 0 4px 8px rgba(99, 144, 255, 0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="menu">
+   <button onclick="location.href='create.html'">1. Create Account</button>
+    <button onclick="location.href='withdraw.html'">2. Withdraw</button>
+    <button onclick="location.href='deposit.html'">3. Deposit</button>
+    <button onclick="location.href='display.html'">4. Display Account</button>
+    <button onclick="location.href='exit.html'">5. Exit</button>
+  </div>
+
+</body>
+</html>
+
