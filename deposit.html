@@ -51,7 +51,7 @@
 <body>
   
   <div class="container">
-    <button class="close-btn" onclick="location.href='new.html'">✕</button>
+    <button class="close-btn" onclick="location.href='bankingsystem.html'">✕</button>
     <h2>Deposit to Account</h2>
     <form id="depositForm">
       <label for="accountNumber">Account Number</label>
@@ -80,7 +80,7 @@
       const amount = parseFloat(document.getElementById('amount').value);
 
       if (!accNum || !/^\d{6}$/.test(pin) || isNaN(amount) || amount <= 0) {
-        message.textContent = '❗ Invalid input. Check account number, PIN, and amount.';
+        message.textContent = 'Invalid input. Check account number, PIN, and amount.';
         message.style.color = 'red';
         return;
       }
