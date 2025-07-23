@@ -58,7 +58,7 @@
 </head>
 <body>
   <div class="container">
-    <button class="close-btn" onclick="location.href='new.html'">✕</button>
+    <button class="close-btn" onclick="location.href='bankingsystem.html'">✕</button>
     <h2>Withdraw Amount</h2>
 
     <form id="withdrawForm">
@@ -93,7 +93,7 @@
       const pin = form.pin.value.trim();
 
       if (!acctNum || !name || isNaN(amount) || amount <= 0 || !/^\d{6}$/.test(pin)) {
-        msg.textContent = '❗ Please fill all fields correctly.';
+        msg.textContent = 'Please fill all fields correctly.';
         return;
       }
 
@@ -106,7 +106,7 @@
       );
 
       if (accountIndex === -1) {
-        msg.textContent = '❗ Account not found or incorrect credentials.';
+        msg.textContent = 'Account not found or incorrect credentials.';
         return;
       }
 
